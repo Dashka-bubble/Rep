@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>TINYSTEPS</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <header class="container mt-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">TINYSTEPS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Все репетиторы</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Заявка на подбор</a>
+          </li>
+        </ul>
+      </div>
+      <span class="navbar-text d-sm-none d-lg-block">
+        ☺️
+      </span>
+    </nav>
+  </header>
+  <main class="container mt-3">
+    <div class="card my-4 mx-auto">
+      <div class="card-body m-2 m-md-4">
+        <article class="row">
+          <div class="col-5"><img src = {{sim.picture}} class="img-fluid" alt=""></div>
+          <div class="col-7">
+
+            <section class="teacher=info">
+
+              <h1 class="h2">{{sim.name}}</h1>
+              <p><span class="badge badge-secondary mr-2">Для путешествий </span>Рейтинг: {{sim.rating}} Ставка: {{sim.price}} / час</p>
+              <p>{{sim.about}}</p>
+
+            </section>
+
+            <section class="available">
+
+              <h4 class="mb-4 mt-5">Записаться на пробный урок</h4>
+
+              <h6 class="mt-4">Понедельник</h6>{%for i,j in sim.free.mon.items()%}{%if j==true%}
+              <a href="/booking/{{sim.id}}/mon/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
+              {%if True not in sim.free.mon.values() %}
+              <p>Нет свободных уроков</p>{%endif%}
+
+              <h6 class="mt-4">Вторник</h6>{%for i,j in sim.free.tue.items()%}{%if j==true%}
+              <a href="/booking/{{sim.id}}/tue/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
+              {%if True not in sim.free.tue.values() %}
+              <p>Нет свободных уроков</p>{%endif%}
+
+              <h6 class="mt-4">Среда</h6>{%for i,j in sim.free.wed.items()%}{%if j==true%}
+              <a href="/booking/{{sim.id}}/wed/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
+              {%if True not in sim.free.wed.values() %}
+              <p>Нет свободных уроков</p>{%endif%}
+
+              <h6 class="mt-4">Четверг</h6>{%for i,j in sim.free.thu.items()%}{%if j==true%}
+              <a href="/booking/{{sim.id}}/thu/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
+              {%if True not in sim.free.thu.values() %}
+              <p>Нет свободных уроков</p>{%endif%}
+
+              <h6 class="mt-4">Пятница</h6>{%for i,j in sim.free.fri.items()%}{%if j==true%}
+              <a href="/booking/{{sim.id}}/fri/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
+              {%if True not in sim.free.fri.values() %}
+              <p>Нет свободных уроков</p>{%endif%}
+
+              <h6 class="mt-4">Суббота</h6>{%for i,j in sim.free.sat.items()%}{%if j==true%}
+              <a href="/booking/{{sim.id}}/sat/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%} {%endfor%}
+              {%if True not in sim.free.sat.values() %}
+              <p>Нет свободных уроков</p>{%endif%}
+
+
+              <h6 class="mt-4">Воскресенье</h6>{%for i,j in sim.free.sun.items()%}{%if j==true%}
+              <a href="/booking/{{sim.id}}/sun/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%if (i[j]==false) == 8%}
+              <p>Нет свободных уроков</p>{%endif%}
+              {%endfor%}
+              {%if True not in sim.free.sun.values() %}
+              <p>Нет свободных уроков</p>{%endif%}
+
+            </section>
+
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
