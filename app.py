@@ -1,15 +1,21 @@
 from flask import Flask, render_template, json
-import random
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import Required
+from wtforms import StringField,SubmitField
 
 app = Flask(__name__)
 app.secret_key = 'my-super-secret-phrase-I-dont-tell-this-to-nobody'
 
 with open("inf.json", "r") as f:
     contents = json.load(f)
+goals = contents[0]
+contents=contents[1]
 
+
+days = {
+        'fri': "Пятница", "wed": 'Среда',
+        "sat": 'Суббота', "tue": 'Вторник',
+        "mon": 'Понедельник', "thu": 'Четверг', "sun": "Воскресенье"
+    }
 
 @app.route('/')
 def main():
@@ -28,8 +34,8 @@ def profile(id):
     for i in contents:
         if id in i.values():
             sim = i
-    j = 0
-    return render_template('profile.html', id=id, sim=sim, j=j)
+
+    return render_template('profile.html', id=id, sim=sim)
 
 
 @app.route('/request/')
@@ -44,33 +50,40 @@ def r_done():
 
 
 class UserForm(FlaskForm):
+
     name = StringField("Вас зовут")
     phone = StringField("Ваш телефон")
     submit = SubmitField('Записаться на пробный урок')
 
 
 @app.route('/booking/<int:id>/<day>/<int:time>/')
-def booking(id, time, day):
+def render_form(id, time, day):
+
     sim = 0
     for i in contents:
         if id in i.values():
             sim = i
     form = UserForm()
-    days = {
-        'fri': "Пятница", "wed": 'Среда',
-        "sat": 'Суббота', "tue": 'Вторник',
-        "mon": 'Понедельник', "thu": 'Четверг', "sun": "Воскресенье"
-    }
-    return render_template('booking.html', form=form, day=day, time=time, sim=sim, days=days)
 
+    return render_template("booking.html",day=day, days=days, form=form, sim=sim, time=time)
 
-@app.route('/booking_done/', methods=["GET", "POST"])
-def b_done():
+# принимаем форму
+@app.route("/booking_done/", methods=["POST"])
+def render_save():
+    dat=[]
+    inform=[]
     form = UserForm()
     name = form.name.data
     phone = form.phone.data
-
-    return render_template('booking_done.html', form=form, name=name, phone=phone)
+    dat.append(name)
+    dat.append(phone)
+    inform.append(dat)
+    print(inform)
+    f=open('booking.json')
+    with open("booking.json", "a") as f:
+        f.dump(inform)
+    f.close()
+    return render_template("booking_done.html",days=days, name=name, phone=phone)
 
 
 if __name__ == '__main__':
