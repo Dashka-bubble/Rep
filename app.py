@@ -25,12 +25,17 @@ days = {
 @app.route('/')
 def main():
     inf = random.sample(contents, 6)
-    return render_template('index.html', inf=inf)
+
+    return render_template('index.html', inf=inf,goales=goales)
 
 
-@app.route('/goals/<int:goal>/')
-def goal():
-    return render_template('goal.html')
+@app.route('/goals/<goal>/')
+def goal(goal):
+    teachers = []
+    for i in contents:
+         if goal in i.get("goals"):
+            teachers.append(i)
+    return render_template('goal.html', teachers=teachers, goal=goal, goales=goales)
 
 
 @app.route('/profiles/<int:id>/')
@@ -40,7 +45,7 @@ def profile(id):
         if id in i.values():
             sim = i
 
-    return render_template('profile.html', id=id, sim=sim)
+    return render_template('profile.html', id=id, sim=sim, goales=goales)
 
 
 '''class UserChoice(FlaskForm):
@@ -59,7 +64,8 @@ def profile(id):
 @app.route('/request/', methods=["GET"])
 def request():
     '''form = UserChoice()'''
-    return render_template('request.html')
+    form=request.form()
+    return render_template('request.html',form=form)
 
 
 @app.route('/request_done/', methods=["POST"])
@@ -100,7 +106,7 @@ def render_form(id, time, day):
     for i in contents:
         if id in i.values():
             sim = i
-    form = request.form
+    form = UserForm()
     UserForm.day = day
     UserForm.time = time
     return render_template("booking.html", day=day, days=days, form=form, sim=sim, time=time)
