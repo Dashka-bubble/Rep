@@ -49,38 +49,38 @@
               <h4 class="mb-4 mt-5">Записаться на пробный урок</h4>
 
               <h6 class="mt-4">Понедельник</h6>{%for i,j in sim.free.mon.items()%}{%if j==true%}
-              <a href="/booking/{{sim.id}}/mon/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
-              {%if True not in sim.free.mon.values() %}
+              <a href="/booking/{{sim.id}}/mon/{{i}}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
+              {% if True not in sim.free.mon.values() %}
               <p>Нет свободных уроков</p>{%endif%}
 
               <h6 class="mt-4">Вторник</h6>{%for i,j in sim.free.tue.items()%}{%if j==true%}
-              <a href="/booking/{{sim.id}}/tue/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
-              {%if True not in sim.free.tue.values() %}
+              <a href="/booking/{{sim.id}}/tue/{{i}}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
+              {% if True not in sim.free.tue.values() %}
               <p>Нет свободных уроков</p>{%endif%}
 
               <h6 class="mt-4">Среда</h6>{%for i,j in sim.free.wed.items()%}{%if j==true%}
-              <a href="/booking/{{sim.id}}/wed/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
-              {%if True not in sim.free.wed.values() %}
+              <a href="/booking/{{sim.id}}/wed/{{i}}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
+              {% if True not in sim.free.wed.values() %}
               <p>Нет свободных уроков</p>{%endif%}
 
               <h6 class="mt-4">Четверг</h6>{%for i,j in sim.free.thu.items()%}{%if j==true%}
-              <a href="/booking/{{sim.id}}/thu/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
-              {%if True not in sim.free.thu.values() %}
+              <a href="/booking/{{sim.id}}/thu/{{i}}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
+              {% if True not in sim.free.thu.values() %}
               <p>Нет свободных уроков</p>{%endif%}
 
               <h6 class="mt-4">Пятница</h6>{%for i,j in sim.free.fri.items()%}{%if j==true%}
-              <a href="/booking/{{sim.id}}/fri/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
-              {%if True not in sim.free.fri.values() %}
+              <a href="/booking/{{sim.id}}/fri/{{i}}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%endfor%}
+              {% if True not in sim.free.fri.values() %}
               <p>Нет свободных уроков</p>{%endif%}
 
               <h6 class="mt-4">Суббота</h6>{%for i,j in sim.free.sat.items()%}{%if j==true%}
-              <a href="/booking/{{sim.id}}/sat/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%} {%endfor%}
-              {%if True not in sim.free.sat.values() %}
+              <a href="/booking/{{sim.id}}/sat/{{i}}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%} {%endfor%}
+              {% if True not in sim.free.sat.values() %}
               <p>Нет свободных уроков</p>{%endif%}
 
 
               <h6 class="mt-4">Воскресенье</h6>{%for i,j in sim.free.sun.items()%}{%if j==true%}
-              <a href="/booking/{{sim.id}}/sun/{%if i|length==4%}{{i[:1]}}{%else%}{{i[:2]}}{%endif%}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%if (i[j]==false) == 8%}
+              <a href="/booking/{{sim.id}}/sun/{{i}}" class="btn btn-outline-success mr-2">{{i}} свободно</a>{%endif%}{%if (i[j]==false) == 8%}
               <p>Нет свободных уроков</p>{%endif%}
               {%endfor%}
               {%if True not in sim.free.sun.values() %}

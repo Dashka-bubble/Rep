@@ -32,12 +32,12 @@
   <main class="container mt-3">
     <div class="row mt-5">
       <div class="col-10 col-md-6 offset-1 offset-md-3 mb-3">
-        <form action="booking_done.html" class="card mb-3">
+        <form action="/booking_done/" class="card mb-3"method="POST">
           <div class="card-body text-center pt-5">
             <img src="{{sim.picture}}" class="mb-3" width="95" alt="">
             <h2 class="h5 card-title mt-2 mb-2">{{sim.name}}</h2>
             <p class="my-1">Запись на пробный урок</p>
-            <p class="my-1">{{days.get(day)}}, {{time}}:00</p>
+            <p class="my-1">{{days.get(day)}}, {{time}}</p>
           </div>
           <hr />
           <div class="card-body mx-3">
@@ -46,18 +46,16 @@
                   <input class="form-control" type="hidden" name="clientTime" value="{{time}}:00">
                   <input class="form-control" type="hidden" name="clientTeacher" value="10">
               </div>
+            {{ form.csrf_token }}
 
-            <form  action="/booking_done/" method="POST">
-              {{ form.csrf_token }}
+            {{ form.name.label(class='control-label')  }}
+            {{ form.name(class="form-control") }}
 
-              {{ form.name.label(class='control-label')  }}
-              {{ form.name(class="form-control") }}
+            {{ form.phone.label(class='control-label')  }}
+            {{ form.phone(class="form-control") }}
+            {{ form.submit(class="btn btn-primary btn-block mt-4" ) }}
 
-              {{ form.phone.label(class='control-label')  }}
-              {{ form.phone(class="form-control") }}
 
-             {{ form.submit(class="btn btn-primary btn-block mt-4" ) }}
-            </form>
 
 
           </div>
