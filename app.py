@@ -64,8 +64,8 @@ def profile(id):
 @app.route('/request/', methods=["GET"])
 def request():
     '''form = UserChoice()'''
-    form=request.form()
-    return render_template('request.html',form=form)
+
+    return render_template('request.html')
 
 
 @app.route('/request_done/', methods=["POST"])
