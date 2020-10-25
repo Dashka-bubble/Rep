@@ -1,7 +1,6 @@
 from flask import Flask
 from flask import render_template
 from flask import json
-from flask import request
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, RadioField
 from wtforms.validators import InputRequired, Length
@@ -48,46 +47,42 @@ def profile(id):
     return render_template('profile.html', id=id, sim=sim, goales=goales)
 
 
-'''class UserChoice(FlaskForm):
+class UserChoice(FlaskForm):
     goal = RadioField("", choices=[("travel", "Для путешествий"), ("study", "Для учебы"),
                                    ("work", "Для работы"),
-                                   ("relocate", "Для переезда")])
+                                   ("relocate", "Для переезда"),("programming","Для программирования")])
     hours = RadioField("",
-                       choices=[("1-2", "1-2 часа в неделю"), ("3-4", "3-4 часа в неделю"),
-                                ("5-6", "5-6 часов в неделю"),
-                                ("7-8", "7-8 часов в неделю")])
+                       choices=[("1-2", "1-2 часа в неделю"), ("3-5", "3-5 часов в неделю"),
+                                ("5-7", "5-7 часов в неделю"),
+                                ("7-10", "7-10 часов в неделю")])
     name = StringField("Вас зовут", [InputRequired(message="Введите имя"), Length(min=2, max=30)])
     phone = StringField("Ваш телефон", [InputRequired(message="Введите телефон"), Length(min=6, max=20)])
-    submit = SubmitField('Найдите мне проподавателя')'''
+    submit = SubmitField('Найдите мне проподавателя')
 
 
-@app.route('/request/', methods=["GET"])
+@app.route('/request/')
 def request():
-    '''form = UserChoice()'''
+    form = UserChoice()
 
-    return render_template('request.html')
+    return render_template('request.html',form=form)
 
 
 @app.route('/request_done/', methods=["POST"])
 def r_done():
-    '''g={}; dat=[]
+    g={}; dat=[]
     form = UserChoice()
     names = form.name.data
     phones = form.phone.data
     goals = form.goal.data
     hours = form.hours.data
     g["time"]=hours; g["number"] = phones; g['goal'] = goals
-    dat.append(g)'''
-    hours = request.form.get("time")
-    goals = request.form.get("goal")
-    phones = request.form.get("phone")
-    names = request.form.get("name")
+    dat.append(g)
     if form.validate_on_submit():
-        '''json_data = json.load(open("request.json", encoding='utf-8'))
+        json_data = json.load(open("request.json", encoding='utf-8'))
         json_data[names]=dat
         with open("request.json", "w") as f:
             json.dump(json_data, f)
-        f.close()'''
+        f.close()
         return render_template("request_done.html", goales=goales, hours=hours, phones=phones, names=names, goals=goals, form=form)
     return 'Вернитесь назад'
 
