@@ -25,14 +25,14 @@ days = {
 def main():
     inf = random.sample(contents, 6)
 
-    return render_template('index.html', inf=inf,goales=goales)
+    return render_template('index.html', inf=inf, goales=goales)
 
 
 @app.route('/goals/<goal>/')
 def goal(goal):
     teachers = []
     for i in contents:
-         if goal in i.get("goals"):
+        if goal in i.get("goals"):
             teachers.append(i)
     return render_template('goal.html', teachers=teachers, goal=goal, goales=goales)
 
@@ -50,7 +50,7 @@ def profile(id):
 class UserChoice(FlaskForm):
     goal = RadioField("", choices=[("travel", "Для путешествий"), ("study", "Для учебы"),
                                    ("work", "Для работы"),
-                                   ("relocate", "Для переезда"),("programming","Для программирования")])
+                                   ("relocate", "Для переезда"), ("programming", "Для программирования")])
     hours = RadioField("",
                        choices=[("1-2", "1-2 часа в неделю"), ("3-5", "3-5 часов в неделю"),
                                 ("5-7", "5-7 часов в неделю"),
@@ -64,26 +64,30 @@ class UserChoice(FlaskForm):
 def request():
     form = UserChoice()
 
-    return render_template('request.html',form=form)
+    return render_template('request.html', form=form)
 
 
 @app.route('/request_done/', methods=["POST"])
 def r_done():
-    g={}; dat=[]
+    g = {}
+    dat = []
     form = UserChoice()
     names = form.name.data
     phones = form.phone.data
     goals = form.goal.data
     hours = form.hours.data
-    g["time"]=hours; g["number"] = phones; g['goal'] = goals
+    g["time"] = hours
+    g["number"] = phones
+    g['goal'] = goals
     dat.append(g)
     if form.validate_on_submit():
         json_data = json.load(open("request.json", encoding='utf-8'))
-        json_data[names]=dat
+        json_data[names] = dat
         with open("request.json", "w") as f:
             json.dump(json_data, f)
         f.close()
-        return render_template("request_done.html", goales=goales, hours=hours, phones=phones, names=names, goals=goals, form=form)
+        return render_template("request_done.html", goales=goales, hours=hours, phones=phones, names=names, goals=goals,
+                               form=form)
     return 'Вернитесь назад'
 
 
@@ -108,16 +112,19 @@ def render_form(id, time, day):
 
 
 # принимаем форму
-@app.route("/booking_done/", methods = ['POST', 'GET'])
+@app.route("/booking_done/", methods=['POST', 'GET'])
 def render_save():
     form = UserForm()
     if form.validate_on_submit():
-        dat = []; g={}
+        dat = []
+        g = {}
         name = form.name.data
         phone = form.phone.data
         day = form.day
         time = form.time
-        g["time"] = time; g['phone']=phone; g['day']=day;
+        g["time"] = time
+        g['phone'] = phone
+        g['day'] = day
         dat.append(g)
         json_data = json.load(open("booking.json", encoding='utf-8'))
         json_data[name] = dat
